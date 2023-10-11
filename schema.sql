@@ -1,4 +1,4 @@
-create table users(
+create table if not exists `users`(
     `id` int auto_increment primary key not null,
     `first_name` varchar(255) not null,
     `last_name` varchar(255) not null,
@@ -7,7 +7,7 @@ create table users(
     `email` varchar(255)
 );
 
-create table sessions(
+create table if not exists `sessions`(
     `id` int auto_increment primary key not null,
     `user_id` int not null,
     `ip` varchar(255) not null,
@@ -16,10 +16,10 @@ create table sessions(
     `expires_at` datetime not null,
     constraint `fk_session_owner`
         foreign key(`user_id`)
-        references users(`id`)
+        references `users`(`id`)
 );
 
-create table accounts(
+create table if not exists `accounts`(
     `id` int auto_increment primary key not null,
     `account_number` int not null,
     `user_id` int not null,
@@ -28,20 +28,20 @@ create table accounts(
     `daily_limit` decimal,
     constraint `fk_account_owner`
         foreign key(`user_id`)
-        references users(`id`)
+        references `users`(`id`)
 );
 
-create table cards(
+create table if not exists `cards`(
     `id` int auto_increment primary key not null,
     `card_number` varchar(255),
     `account_id` int not null,
     `daily_limit` decimal,
     constraint `fk_card_account`
         foreign key(`account_id`)
-        references account(`id`)
-)
+        references `accounts`(`id`)
+);
 
-create table transactions(
+create table if not exists `transactions`(
     `id` int auto_increment primary key not null,
     `amount` decimal not null,
     `session_id` int not null,
@@ -50,8 +50,8 @@ create table transactions(
 
     constraint `fk_transaction_source`
         foreign key(`source_account_id`)
-        references accounts(`id`),
+        references `accounts`(`id`),
     constraint `fk_transaction_destination`
         foreign key(`destination_account_id`)
-        references accounts(`id`)
+        references `accounts`(`id`)
 );
