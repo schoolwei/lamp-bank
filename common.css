@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Fira+Code&display=swap');
+
+html, body {
+  font-family: 'Fira Code', monospace;
+}
+
+.cursive {
+  font-family: 'Cedarville Cursive', cursive;
+}

@@ -1,5 +1,6 @@
 create table if not exists `users`(
     `id` int auto_increment primary key not null,
+    `full_name` varchar(255) not null,
     `first_name` varchar(255) not null,
     `last_name` varchar(255) not null,
     `password_hash` varchar(255) not null,
