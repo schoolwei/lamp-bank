@@ -37,12 +37,12 @@ function login() {
         }
     }
 
-    if ($count > 1) {
-        return "Please use your user ID";
-    }
-
     if (!$current_user) {
         return "Bad login credentials";
+    }
+
+    if ($count > 1) {
+        return "Please use your user ID";
     }
 
     header("Location: dashboard.php");
