@@ -1,6 +1,7 @@
 <?php
 
 include ("conn.php");
+include ("create_session.php");
 
 $full_name = mysqli_escape_string($conn, $_POST['full_name']);
 $password = $_POST['password'];
@@ -45,6 +46,8 @@ function login() {
         return "Please use your user ID";
     }
 
+    $token = create_session($current_user["id"]);
+    setcookie("token", $token);
     header("Location: dashboard.php");
     die();
 }
