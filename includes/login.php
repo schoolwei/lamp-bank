@@ -2,13 +2,14 @@
 
 include ("conn.php");
 include ("create_session.php");
+include ("config.php");
 
 $full_name = mysqli_escape_string($conn, $_POST['full_name']);
 $password = $_POST['password'];
 
 function login() {
 
-    global $conn, $full_name, $password;
+    global $conn, $full_name, $password, $ACCESS_TOKEN;
 
     if ($_SERVER["REQUEST_METHOD"] != "POST") {
         return "";
@@ -47,7 +48,7 @@ function login() {
     }
 
     $token = create_session($current_user["id"]);
-    setcookie("token", $token);
+    setcookie($ACCESS_TOKEN, $token);
     header("Location: dashboard.php");
     die();
 }

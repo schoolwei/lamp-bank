@@ -1,3 +1,10 @@
+<?php
+include("./includes/auth_user.php");
+
+auth_user();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temperature</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+  </head>
+
+  <body>
+    <h1>Data</h1>
+    <button>Get Data</button>
+    <pre></pre>
+
+    <script>
+      const pre = document.querySelector("pre");
+      const button = document.querySelector("button");
+
+      button.onclick = async () => {
+        const res = await fetch("./read.php");
+        const data = await res.json();
+        pre.innerText = JSON.stringify(data, null, 2)
+      };
+    </script>
+  </body>
+</html>

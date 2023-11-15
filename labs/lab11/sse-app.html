@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div>
+      <canvas></canvas>
+    </div>
+    <script>
+      const ctx = document.querySelector("canvas");
+
+      const chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: Array(100)
+            .fill(0)
+            .map((_, i) => i),
+          datasets: [{ label: "Temperature" }],
+        },
+      });
+      const max = 1000;
+
+      const source = new EventSource("./sse.php");
+      source.onmessage = (e) => {
+        const parsed = JSON.parse(e.data);
+        const { temperature, timestamp } = parsed
+        chart.data.labels.push(timestamp);
+        chart.data.datasets.forEach((dataset) => {
+          dataset.data.push(temperature);
+          if (dataset.data.length > max) {
+            dataset.data.shift();
+          }
+        });
+        if (chart.data.labels.length > max) {
+          chart.data.labels.shift();
+        }
+        chart.update('none');
+      };
+    </script>
+  </body>
+</html>
